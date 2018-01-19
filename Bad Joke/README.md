@@ -1,3 +1,3 @@
 # Warning!
 
-This script(for win) renames all files on your descktop. Learn code before using.
+This script(for windows) renames all files on your descktop. Learn code before using.
