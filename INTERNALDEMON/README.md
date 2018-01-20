@@ -1,2 +1,8 @@
 # PROJECT INTERNALDEMON
-Info
+
+Internaldemon this is trial version programm for getting information about someone else's PC.
+When user runs this, program collects general data about machine and send they on yours gmail.
+You will receive the data about processor, some files on desktop and name pc user.
+
+If you find error in code or you have an idea about new functions of program please send me letter ;)
+
