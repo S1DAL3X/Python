@@ -51,8 +51,8 @@ def report(ip_adress, arg, arg2):
     msgObject = smtplib.SMTP('smtp.gmail.com', 587)
 
     msgObject.starttls()
-    msgObject.login('totorenko2001@gmail.com', 'sap24052001')
-    msgObject.sendmail('123@gmail.com', 'totorenko2001@gmail.com', str(report_text))
+    msgObject.login('-----', '-----')
+    msgObject.sendmail('123@gmail.com', '-----', str(report_text))
     msgObject.quit()
     
 
