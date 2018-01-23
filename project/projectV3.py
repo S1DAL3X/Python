@@ -2,7 +2,7 @@
 WARNING! WARNING! WARNING!
 READ THIS!
 
-function cryptor() encrypts all files on your desktop by RSA-2048 and rename they on FILENAME.BRO !!!
+function cryptor() encrypts all .TXT or .DOCX files on your desktop by RSA-2048 and rename they on FILENAME.BRO !!!
 LEARN FUNCTION BEFORE USING !!!
 
 WARNING! WARNING! WARNING!
