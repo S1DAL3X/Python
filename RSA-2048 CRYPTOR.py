@@ -65,8 +65,8 @@ def decrypt_RSA():
 
 
 def main():
-    #get_RSA_keys()
-    decrypt_RSA()
+    get_RSA_keys()
+    #decrypt_RSA()
 
 
 if __name__ == '__main__':
