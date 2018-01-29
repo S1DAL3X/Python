@@ -1,10 +1,12 @@
 from tkinter import *
 
+#This is full screen app
 root = Tk()
 root.title('Window')
 
 maxSizeWindow = root.maxsize()
 
+#in 1920 and 1080 write you weight and height monitor screen
 weight = (maxSizeWindow[0] // 2) - 1920 // 2 - 9
 height = (maxSizeWindow[1] // 2) - 1080 // 2
 
