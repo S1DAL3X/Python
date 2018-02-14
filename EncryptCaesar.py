@@ -41,4 +41,4 @@ def main():
         decoder(text, key)
     
 main()
-#Created by Aleksey Sidorenko
+#Created by S1DAL3X
