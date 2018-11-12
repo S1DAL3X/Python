@@ -2,7 +2,7 @@
 
 NAME:    INTERNALDEMON
 AUTHOR:  S1DAL3X
-VERSION: 3.1
+VERSION: 3.2
 PYTHON:  3.6.1
 
 Please enter your gmail login and password before using script
