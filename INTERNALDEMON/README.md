@@ -5,5 +5,7 @@ The script is suitable for Win Vista, Win 7, Win 8 and Win 10. For Win XP need t
 When user runs this, program collects general data about machine and send they on yours gmail.
 You will receive the data about processor, some files on desktop and name pc user.
 
+PATH FOR WIN XP: "C://Documents and Settings//" + str(LOGIN) + '//Desktop' (line 43 and line 44)
+
 If you find error in code or you have an idea about new functions of program please send me letter ;)
 
