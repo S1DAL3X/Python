@@ -81,7 +81,7 @@ def report(ip_adress, arg, arg2):
 
     msgObject.starttls()
     msgObject.login('-----', '-----')                                           # Here enter your login and password                                           
-    msgObject.sendmail('123@gmail.com', '-----', str(report_text))              # Enter login again
+    msgObject.sendmail('123@gmail.com', '-----', report_text.encode('utf8'))    # Enter login again
     msgObject.quit()                                                            # Close smtplib session
     
     
