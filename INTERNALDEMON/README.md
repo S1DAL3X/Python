@@ -9,5 +9,7 @@ DATA WHICH YOU GET: CPU, USERNAME, FILES ON DESK, IP, USER DIR, PC NAME and othe
 
 PATH FOR WIN XP: "C://Documents and Settings//" + str(LOGIN) + '//Desktop' (line 43 and line 44)
 
+IN PROCESS COMPILLING RENAME 'INTERNALDEMON.py' on 'INTERNALDEMON.exe'(line 33)
+
 If you find error in code or you have an idea about new functions of program please send me letter ;)
 
