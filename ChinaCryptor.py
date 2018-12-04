@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#
+#Шифрование файла алгоритмом AES-256
 
 import os, hashlib
 from Crypto.Cipher import AES                                           # PyCrypto
