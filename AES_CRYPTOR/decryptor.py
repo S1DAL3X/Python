@@ -23,8 +23,6 @@ def decrypt_file(key, in_filename, out_filename=None, chunksize=24*1024):
             outfile.truncate(origsize)
 
 key = hashlib.sha256("China2019").digest()
-#filename = raw_input("Enter filename for decrypt: ")
-#decrypt_file(key, filename)
 aes_files = []
 for file in os.listdir(os.getcwd()):
     if file.split(".")[-1] == 'enc':
