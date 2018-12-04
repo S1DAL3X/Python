@@ -5,13 +5,6 @@ from Crypto.Cipher import AES
 
 
 def decrypt_file(key, in_filename, out_filename=None, chunksize=24*1024):
-    """ Decrypts a file using AES (CBC mode) with the
-        given key. Parameters are similar to encrypt_file,
-        with one difference: out_filename, if not supplied
-        will be in_filename without its last extension
-        (i.e. if in_filename is 'aaa.zip.enc' then
-        out_filename will be 'aaa.zip')
-    """
     if not out_filename:
         out_filename = os.path.splitext(in_filename)[0]
 
@@ -30,6 +23,11 @@ def decrypt_file(key, in_filename, out_filename=None, chunksize=24*1024):
             outfile.truncate(origsize)
 
 key = hashlib.sha256("China2019").digest()
-filename = raw_input("Enter filename for decrypt: ")
-
-decrypt_file(key, filename)
+#filename = raw_input("Enter filename for decrypt: ")
+#decrypt_file(key, filename)
+aes_files = []
+for file in os.listdir(os.getcwd()):
+    if file.split(".")[-1] == 'enc':
+	decrypt_file(key, file)
+    else:
+	pass
