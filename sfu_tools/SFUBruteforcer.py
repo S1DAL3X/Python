@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 #Script to bruteforce password to sfu-kras accounts
+#Made by S1DAL3X
 import sys
 import requests
 import colorama
