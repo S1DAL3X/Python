@@ -2,6 +2,7 @@
 #Script to update html page on sfu sites
 #Default updating one time in (1 - 3) min
 #По умолчанию - скрипт посылает POST запрос на сайт один раз в (1 - 4) минуты
+#Made by S1DAL3X
 import sys
 import random
 import colorama
