@@ -35,7 +35,17 @@ def client_side():
     sock_client.close()
 
 def main():
-    print('Welcome to PyChat! \n')
+    banner = '''
+                        Welcome to
+        dMMMMb  dMP dMP .aMMMb  dMP dMP .aMMMb dMMMMMMP 
+       dMP.dMP dMP.dMP dMP"VMP dMP dMP dMP"dMP   dMP    
+      dMMMMP"  VMMMMP dMP     dMMMMMP dMMMMMP   dMP     
+     dMP     dA .dMP dMP.aMP dMP dMP dMP dMP   dMP      
+    dMP      VMMMP"  VMMMP" dMP dMP dMP dMP   dMP    
+    ________________________________________________
+                     made by S1DAL3X
+                                                    
+    '''
     th_server, th_client = Thread(target = server_side), Thread(target = client_side)
     th_server.start(), th_client.start()
     th_server.join(),th_client.join()
