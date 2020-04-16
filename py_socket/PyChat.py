@@ -10,7 +10,7 @@ def server_side():
     sock_serv.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
     sock_serv.bind((SERVER_ADDR, SERVER_PORT))
 
-    print('Server side is UP !')
+    print('Server side is UP !\n')
 
     while True:
         data = sock_serv.recv(4096)
@@ -46,6 +46,7 @@ def main():
                      made by S1DAL3X
                                                     
     '''
+    print(banner)
     th_server, th_client = Thread(target = server_side), Thread(target = client_side)
     th_server.start(), th_client.start()
     th_server.join(),th_client.join()
