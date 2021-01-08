@@ -1,0 +1,36 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: #141e30;
+}
+.bg-landscape{
+    position: fixed;
+    bottom: 0;
+}
+.main-container{
+    margin-top: 3%;
+}
+.main-card{
+    background-color: #162a3e;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+}
+.card-body{
+    padding: 2.25rem 3.5rem;
+}
+.title-text{
+    color: #ff3446;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.card-1 p{
+    color: #ffffff;
+}
+.haski{
+    height: 250px;
+    width: 250px;
+}
