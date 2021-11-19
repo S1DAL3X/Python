@@ -1,3 +1,7 @@
+"""
+На вход поступает файл html, в тегах которого содержатся ссылки <a> на изображения jpg/jpeg.
+Скачивание происходит в директорию диска M "download_images"
+"""
 import requests, os, urllib.request, wget
 from bs4 import BeautifulSoup as BS
 
