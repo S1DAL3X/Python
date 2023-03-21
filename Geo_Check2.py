@@ -3,7 +3,7 @@
 import numpy, math
 
 #Координаты потребителя (исходя из таблицы)
-X = int(input("Введите исходное значение X потребителя: "))
+X = int(input("\nВведите исходное значение X потребителя: "))
 #X = 2531
 Y = int(input("Введите исходное значение Y потребителя: "))
 #Y = -3126
@@ -50,21 +50,28 @@ print("Значение R2 = " + str(R2))
 print("Значение R3 = " + str(R3))
 print("Значение R4 = " + str(R4))
 
+#Матрица для 4х спутников
 H = numpy.array([ [ ((X-X1)/R1), ((Y-Y1)/R1), ((Z-Z1)/R1) ],
                   [ ((X-X2)/R2), ((Y-Y2)/R2), ((Z-Z2)/R2) ],
                   [ ((X-X3)/R3), ((Y-Y3)/R3), ((Z-Z3)/R3) ],
                   [ ((X-X4)/R4), ((Y-Y4)/R4), ((Z-Z4)/R4) ] ])
 
-print("\n")
-print("Матрица H: \n" + str(H))
+#Матрица для 3х спутников
+H3 = numpy.array([ [ ((X-X1)/R1), ((Y-Y1)/R1), ((Z-Z1)/R1) ],
+                   [ ((X-X2)/R2), ((Y-Y2)/R2), ((Z-Z2)/R2) ],
+                   [ ((X-X3)/R3), ((Y-Y3)/R3), ((Z-Z3)/R3) ] ])
+
+print("\nМатрица H для 4х спутников: \n" + str(H))
+print("\nМатрица H для 3х спутников: \n" + str(H3))
 
 #Перемножение матриц в NumPy осуществляется с помощью функции x.dot(y)
 #Numpy.trace - след матрицы (произведение её диагональных элементов)
 #PDOP - пространственный геометрический фактор
 PDOP = math.sqrt( numpy.trace( (H.transpose()).dot(H) ** (-1) ) )
+PDOP3 = math.sqrt( numpy.trace( (H3.transpose()).dot(H3) ** (-1) ) )
 
-print("\n")
-print("PDOP = " + str(PDOP))
+print("\nДля 4х спутников PDOP = " + str(PDOP))
+print("\nДля 3х спутников PDOP = " + str(PDOP3))
 
 #Определение угломестных координат спутника относительно местоположения потребителя
 sin_a1 = ( X*(X1-X)+Y*(Y1-Y)+Z*(Z1-Z) ) / ( math.sqrt(X**2 + Y**2 + Z**2) * R1 )
@@ -114,7 +121,8 @@ Or_2 = math.sqrt( Oef**2 + Otr_2**2 + Oion_2**2 )
 Or_3 = math.sqrt( Oef**2 + Otr_3**2 + Oion_3**2 )
 Or_4 = math.sqrt( Oef**2 + Otr_4**2 + Oion_4**2 )
 
-Or_quatro_sum = (Or_1**2 + Or_2**2 + Or_3**2)**2
+Or_quatro_sum = (Or_1**2 + Or_2**2 + Or_3**2 + Or_4**2)**2
+Or_quatro_sum3 = (Or_1**2 + Or_2**2 + Or_3**2)**2
 
 print("\n")
 print("Рассчитанные значения Сигма-R-i соответствуют: ")
@@ -123,11 +131,13 @@ print("Сигма-R-2 = " + str(Or_2))
 print("Сигма-R-3 = " + str(Or_3))
 print("Сигма-R-4 = " + str(Or_4))
 
-print("\n")
-print("Суммарное значение Сигма-R в квадрате = " + str(Or_quatro_sum))
+print("\nСуммарное значение Сигма-R в квадрате для 4х спутников = " + str(Or_quatro_sum))
+print("\nСуммарное значение Сигма-R в квадрате для 3х спутников = " + str(Or_quatro_sum3))
 
 #Определение Сигма-X
 Ox = PDOP * math.sqrt(Or_quatro_sum)
-print("\n")
-print("Рассчитанное значение Сигма-X = " + str(Ox))
+Ox3 = PDOP * math.sqrt(Or_quatro_sum3)
 
+print("\nРассчитанное значение Сигма-X для 4х спутников = " + str(Ox))
+print("\nРассчитанное значение Сигма-X для 3х спутников = " + str(Ox3))
+print("\n")
