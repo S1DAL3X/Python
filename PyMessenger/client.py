@@ -25,16 +25,22 @@ def receive_message(sock):
         try:
             data = sock.recv(1024)
             if not data:
-                sys.stdout.write("\r\033[K")                    # Стираем строку
+                sys.stdout.write("\r\033[K")                        # Стираем строку
                 print(f"[!] Собеседник отключился...")
                 break
 
-            now = datetime.now().strftime("%H:%M:%S")              #Вычисляем текущее время в функции приема (показа) сообщений
+            now = datetime.now().strftime("%H:%M:%S")               #Вычисляем текущее время в функции приема (показа) сообщений
             text = data.decode("utf-8")
 
-            sys.stdout.write("\r\033[K")                        # Стираем строку
-            print(f"Собеседник: {text}")                # Выводим сообщение
-            sys.stdout.write("Вы: ")                   # Возвращаем приглашение ввода
+            if "|" in text:
+                time_part, msg_part = text.split("|", 1)
+                sys.stdout.write("\r\033[K")
+                print(f"{Fore.GREEN}[{time_part}]{Style.RESET_ALL} {Fore.MAGENTA}Собеседник: {Style.RESET_ALL}{msg_part}")
+            else:
+                sys.stdout.write("\r\033[K")
+                print(f"{Fore.MAGENTA}Собеседник: {Fore.RESET_ALL} {text}")
+
+            sys.stdout.write(f"{Fore.GREEN}[{now}]{Style.RESET_ALL} {Fore.CYAN}Вы: {Style.RESET_ALL}")                                # Возвращаем приглашение ввода
             sys.stdout.flush()
         except:
             break
@@ -59,9 +65,8 @@ def start_client():
 
     while True:
         try:
-
-            msg = input("Вы: ")
-
+            now = datetime.now().strftime("%H:%M:%S")
+            msg = input(f"{Fore.GREEN}[{now}]{Style.RESET_ALL} {Fore.CYAN}Вы: {Style.RESET_ALL}")
             if msg.lower() == "exit":
                 break
             if not msg.strip():

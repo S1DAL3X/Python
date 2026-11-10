@@ -1,10 +1,10 @@
-import socket                   # Импорт библиотеки для работы с сокетами (ip + port)
-import threading                # Импорт библиотеки для работы с многопоточностью
+import socket                                                                   # Импорт библиотеки для работы с сокетами (ip + port)
+import threading                                                                # Импорт библиотеки для работы с многопоточностью
 from datetime import datetime
 
 # Настройка сервера
-HOST = '127.0.0.1'              # IP-адрес сервера (поднимаем на локалхосте)
-PORT = 12345                    # Порт сервера
+HOST = '127.0.0.1'                                                              # IP-адрес сервера (поднимаем на локалхосте)
+PORT = 12345                                                                    # Порт сервера
 banner = r"""
     ____           __  ___                                         
    / __ \__  __   /  |/  /__  _____________  ____  ____ ____  _____
@@ -22,9 +22,13 @@ def handle_client(connection, address, other_connection):                       
             if not data:
                 break
             now = datetime.now().strftime("%H:%M:%S")
-            print(f"[MSG] Получено от {address}:" + str(now) + f" {data.decode('utf-8')}")      # Вывод переписки на сервере
+            text = data.decode("utf-8")                                         # Декодируем сообщение в строку перед форматированием
+            formated_msg = f"{now}|{text}"                                      # Добавляем в сообщение время отправки (текущее время обработки)
+
+            print(f"[MSG] {address} [{now}]: {text}")                           # Вывод переписки на сервере (лог)
+
             if other_connection:
-                other_connection.sendall(data)                                  # Пересылка полученных данных другому клиенту
+                other_connection.sendall(formated_msg.encode("utf-8"))          # Кодируем обратно и пересылаем данных другому клиенту
         except:
             break
 
