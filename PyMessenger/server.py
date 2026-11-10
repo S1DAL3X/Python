@@ -1,10 +1,11 @@
 import socket                   # Импорт библиотеки для работы с сокетами (ip + port)
 import threading                # Импорт библиотеки для работы с многопоточностью
+from datetime import datetime
 
 # Настройка сервера
 HOST = '127.0.0.1'              # IP-адрес сервера (поднимаем на локалхосте)
 PORT = 12345                    # Порт сервера
-banner = """
+banner = r"""
     ____           __  ___                                         
    / __ \__  __   /  |/  /__  _____________  ____  ____ ____  _____
   / /_/ / / / /  / /|_/ / _ \/ ___/ ___/ _ \/ __ \/ __ `/ _ \/ ___/
@@ -20,13 +21,14 @@ def handle_client(connection, address, other_connection):                       
             data = connection.recv(1024)
             if not data:
                 break
-            print(f"[MSG] Получено от {address}:  {data.decode('utf-8')}")      # Вывод переписки на сервере
+            now = datetime.now().strftime("%H:%M:%S")
+            print(f"[MSG] Получено от {address}:" + str(now) + f" {data.decode('utf-8')}")      # Вывод переписки на сервере
             if other_connection:
                 other_connection.sendall(data)                                  # Пересылка полученных данных другому клиенту
         except:
             break
 
-    print(f"[-] Клиент {address} отключился.")
+    print(f"[ - ] Клиент {address} отключился.")
     connection.close()
 
 def start_server():                                                             # Поднимаем сервер
@@ -37,19 +39,19 @@ def start_server():                                                             
         print(banner)
     except SyntaxWarning:
         pass
-    print(f"[*]  Сервер запущен на {HOST}:{PORT}. Ожидание двух клиентов...")
+    print(f"[ * ] Сервер запущен на {HOST}:{PORT}. Ожидание двух клиентов...")
 
     clients = []                                                                # создаем список клиентов
     while len(clients) < 2:
         connection, address = server.accept()
         clients.append((connection, address))
-        print(f"[+] Подключился клиент: {address}")
+        print(f"[ + ] Подключился клиент: {address}")
 
     # Когда подключились оба клиента запускаем потоки для пересылки данных
     c1, a1 = clients[0]
     c2, a2 = clients[1]
 
-    print("[*] Оба клиента подключены. Можно общаться!")
+    print("[ * ] Оба клиента подключены. Можно общаться!")
     threading.Thread(target = handle_client, args=(c1, a1, c2), daemon = True).start()
     threading.Thread(target = handle_client, args=(c2, a2, c1), daemon = True).start()
 

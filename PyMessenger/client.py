@@ -1,9 +1,11 @@
-import socket # Импорт библиотеки для работы с сокетами (ip + port)
-import threading # Импорт библиотеки для работы с многопоточностью
-import os
+import socket       # Импорт библиотеки для работы с сокетами (ip + port)
+import threading    # Импорт библиотеки для работы с многопоточностью
+import os, sys
+from datetime import datetime                # Импорт библиотеки для показа времени отправки сообщения
+from colorama import Fore, Back, Style, init # Импорт библиотеки для работы с цветом в терминале
 
-os.system('cls' if os.name == 'nt' else 'clear')
-banner = """
+init()                                                      # Инициализация colorama
+banner = r"""
     ____           __  ___                                         
    / __ \__  __   /  |/  /__  _____________  ____  ____ ____  _____
   / /_/ / / / /  / /|_/ / _ \/ ___/ ___/ _ \/ __ \/ __ `/ _ \/ ___/
@@ -16,49 +18,64 @@ banner = """
 HOST = '127.0.0.1'
 PORT = 12345
 
+
 def receive_message(sock):
     # Фоновая функция (поток) для получения сообщений
     while True:
         try:
             data = sock.recv(1024)
             if not data:
-                print("\n[!] Собеседник отключился.")
+                sys.stdout.write("\r\033[K")                    # Стираем строку
+                print(f"[!] Собеседник отключился...")
                 break
-            # Зеленый цвет для друга, сброс цвета в конце (\033[0m)
-            print(f"\n\033[92m[Собеседник]: {data.decode('utf-8')}\033[0m")
-            print("Вы: ", end = "", flush = True) # Возвращаем приглашение ввода
+
+            now = datetime.now().strftime("%H:%M:%S")              #Вычисляем текущее время в функции приема (показа) сообщений
+            text = data.decode("utf-8")
+
+            sys.stdout.write("\r\033[K")                        # Стираем строку
+            print(f"Собеседник: {text}")                # Выводим сообщение
+            sys.stdout.write("Вы: ")                   # Возвращаем приглашение ввода
+            sys.stdout.flush()
         except:
             break
 
+
 # Поднимаем клиент
 def start_client():
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Создаем соединение IP:PORT по протоколу TCP
+
+    print(banner)
+
     try:
         client.connect((HOST, PORT))
+        print(f"[*] Подключено к серверу {HOST}:{PORT}.")
     except ConnectionRefusedError:
         print("[!] Не удалось подключиться.Убедитесь, что сервер запущен.")
         return
 
-    print(f"[*] Подключено к серверу {HOST}:{PORT}.")
-
     # Запуск потока для приема сообщений
-
     thread = threading.Thread(target = receive_message, args = (client,), daemon=True)
     thread.start()
 
-    # Цикл для отправки
     while True:
         try:
+
             msg = input("Вы: ")
-            if msg.lower() == 'exit':
+
+            if msg.lower() == "exit":
                 break
-            # Отправка сообщения на сервер
+            if not msg.strip():
+                continue
+
+            sys.stdout.write("\r\033[K")                                # Стираем строку
             client.sendall(msg.encode('utf-8'))
+
         except (KeyboardInterrupt, EOFError):
             break
 
     client.close()
-    print("[*] Вы отключились.")
+    print(f"[*] Вы отключились.")
+
 
 if __name__ == '__main__':
     start_client()
