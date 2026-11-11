@@ -15,24 +15,63 @@ banner = r"""
                             SERVER
       """
 
-def handle_client(connection, address, other_connection):                       # Функция пересылки сообщений от одного клиента к другому
+def handle_client(connection, address, other_connection=None):# Функция пересылки сообщений от одного клиента к другому
+    # ПОЛУЧЕНИЕ ИМЕНИ ПЕРВЫМ СООБЩЕНИЕМ ОТ КЛИЕНТА
+    username = None
+    try:
+        raw_name = connection.recv(1024).decode("utf-8")
+        if not raw_name:
+            connection.close()
+            return
+
+        if raw_name.startswith("NAME:"):
+            username = raw_name.split(":", 1)[1].strip()
+        else:
+            username = f"User_{address[1]}" # Запасной вариант
+
+        # УВЕДОМЛЕНИЕ КЛИЕНТОВ ПРИ ПОДКЛЮЧЕНИИ НОВЫХ КЛИЕНТОВ
+        if other_connection:
+            try:
+                other_connection.sendall(f"[SYS]|{username} подключился к чату.".encode("utf-8"))
+            except Exception as e:
+                print(f"[!] Не удалось уведомить собеседника о подключении, ошибка {e}")
+
+    except Exception as e:
+        print(f"Ошибка при получении имени: {e}")
+        connection.close()
+        return
+
+    # ПЕРЕСЫЛКА СООБЩЕНИЯ ЧЕРЕЗ СЕРВЕР ОТ КЛИЕНТА К КЛИЕНТУ
     while True:
         try:
             data = connection.recv(1024)
             if not data:
                 break
+
             now = datetime.now().strftime("%H:%M:%S")
             text = data.decode("utf-8")                                         # Декодируем сообщение в строку перед форматированием
-            formated_msg = f"{now}|{text}"                                      # Добавляем в сообщение время отправки (текущее время обработки)
+            formated_msg = f"{now}|{username}|{text}"                                      # Добавляем в сообщение время отправки (текущее время обработки)
 
-            print(f"[MSG] {address} [{now}]: {text}")                           # Вывод переписки на сервере (лог)
+            print(f"[MSG] {now} [{username}]: {text}")                           # Вывод переписки на сервере (лог)
 
             if other_connection:
-                other_connection.sendall(formated_msg.encode("utf-8"))          # Кодируем обратно и пересылаем данных другому клиенту
-        except:
+                try:
+                    other_connection.sendall(formated_msg.encode("utf-8"))          # Кодируем обратно и пересылаем данных другому клиенту
+                except Exception as e:
+                    print(f"[!] Ошибка отправки: {e}")
+
+        except Exception as e:
+            print(f"[!] Ошибка в цикле функции handle_client: {e}")
             break
 
+    # СООБЩЕНИЕ ОБ ОТКЛЮЧЕНИИ КЛИЕНТА
     print(f"[ - ] Клиент {address} отключился.")
+    if username and other_connection:
+        try:
+            other_connection.sendall(f"[SYS]|{username} покинул чат.".encode("utf-8"))
+        except:
+            pass
+
     connection.close()
 
 def start_server():                                                             # Поднимаем сервер
